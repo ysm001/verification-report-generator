@@ -1,0 +1,24 @@
+{
+  "name": "verification-report-chart-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^0.21.0",
+    "array-sugar": "^1.2.2",
+    "co": "^4.6.0",
+    "co-foreach": "^1.1.1",
+    "co-wait": "0.0.0",
+    "date-utils": "^1.2.17",
+    "fs-extra": "^0.26.4",
+    "fs-promise": "^0.3.1",
+    "glob": "^6.0.4",
+    "jszip": "^2.5.0",
+    "mkdirp": "^0.5.1"
+  }
+}
