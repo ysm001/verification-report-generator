@@ -68,3 +68,4 @@ build/Release
 node_modules
 
 tmp
+output
