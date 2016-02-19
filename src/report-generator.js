@@ -18,29 +18,29 @@ module.exports = class ReportGenerator {
     return fs.readFileSync(path.join(__dirname, '../data/report.template.html'));
   }
 
-  static makeMustacheJSON(sources) {
-    const byMachine = (source) => source.image.machine;
-    const byType = (source) => source.image.type;
-    const byTool = (source) => source.image.tool;
-    const byCore = (source) => source.image.core;
-    const byGroup = (source) => source.image.group;
-    const byIndex = (source) => source.image.index;
+  static makeMustacheJSON(images) {
+    const byMachine = (image) => image.machine;
+    const byType = (image) => image.type;
+    const byTool = (image) => image.tool;
+    const byCore = (image) => image.core;
+    const byGroup = (image) => image.group;
+    const byIndex = (image) => image.index;
 
     const newKeys = [
     {self: 'tool', children: 'tabs'},
     {self: 'core', children: 'groups'},
     {self: 'group', children: 'types'},
     {self: 'type', children: 'items'},
-    {self: 'id', children: 'path'}
+    {self: 'id', children: 'data'}
     ];
 
-    const nestedJson = nestGroupBy(sources, [byMachine, byTool, byCore, byGroup, byType, byIndex]);
+    const nestedJson = nestGroupBy(images, [byMachine, byTool, byCore, byGroup, byType, byIndex]);
     return ReportGenerator.convertToMustacheFormat(nestedJson['hpg9-0'], newKeys);
   }
 
   static convertToMustacheFormat(nestedJson, newKeys) {
     if (newKeys.length == 0) {
-      return nestedJson[0].path;
+      return nestedJson[0].data;
     }
 
     if (newKeys[0].self == 'type') {

@@ -99,7 +99,7 @@
                             <!--
                             <chart dataId="{{::chartContainer.dataId}}" category="{{::chartContainer.category}}" tab="{{::tab}}" group="{{::group}}" itemId="{{::itemId}}"></chart>
                             -->
-                            <object type="image/svg+xml" data="{{path}}"></object>
+                            {{& data}}
                           </div>
                           {{/chart}}
                         </div>
@@ -108,7 +108,7 @@
                           <!--
                           <detail dataId="{{::chartContainer.dataId}}" category="{{::chartContainer.category}}" group="{{::group}}" tab="{{::tab}}"></detail>
                           -->
-                          <object type="image/svg+xml" data="{{path}}"></object>
+                          {{& data}}
                         </div>
                         {{/table}}
                         {{/types}}

@@ -6,6 +6,7 @@ const flatten = require('flatten');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const ReportGenerator = require('../src/report-generator.js');
+const path = require('path');
 
 const input = process.argv[2];
 const output = process.argv[3];
@@ -26,19 +27,20 @@ Log.fromAnsibleLogFiles(input).then((logs) => {
 }).then((images) => {
   logger.info(`------------------------ save files -------------------------`, true);
   return map(images, (image) => {
-    const fileName = `${image.name}.${image.ext}`
-    const path = `${imageOutput}/${fileName}`;
+    const path = `${imageOutput}/${image.name}.${image.ext}`;
     return image.save(path).then(() => {
       logger.info(`saved: ${path}`);
-      return { path: `./${imageDirectory}/${fileName}`, image: image };
+      return image;
     });
   });
 }).then((results) => {
   const html = ReportGenerator.generate(results);
-  fs.writeFileSync(`${output}/${reportFileName}`, html);
+  const reportFilePath = path.resolve(`${output}/${reportFileName}`);
+  fs.writeFileSync(reportFilePath, html);
 
   logger.info('');
   logger.info(`finish (process time: ${(Date.now() - start) / 1000} sec)`, true);
+  logger.info(`report file: ${reportFilePath}`, true);
   logger.info('');
 }).catch((err) => {
   console.error(err.stack);
