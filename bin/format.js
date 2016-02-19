@@ -4,11 +4,18 @@ const map = require('promise-map-series');
 const logger = require('../libs/logger.js');
 const flatten = require('flatten');
 const mkdirp = require('mkdirp');
+const fs = require('fs');
+const ReportGenerator = require('../src/report-generator.js');
 
 const input = process.argv[2];
 const output = process.argv[3];
 
-mkdirp.sync(output);
+const imageDirectory = `images`;
+const imageOutput = `${output}/${imageDirectory}`
+
+const reportFileName = 'report.html';
+
+mkdirp.sync(imageOutput);
 
 const start = Date.now();
 Log.fromAnsibleLogFiles(input).then((logs) => {
@@ -19,13 +26,17 @@ Log.fromAnsibleLogFiles(input).then((logs) => {
 }).then((images) => {
   logger.info(`------------------------ save files -------------------------`, true);
   return map(images, (image) => {
-    const path = `${output}/${image.name}.${image.ext}`;
+    const fileName = `${image.name}.${image.ext}`
+    const path = `${imageOutput}/${fileName}`;
     return image.save(path).then(() => {
       logger.info(`saved: ${path}`);
-      return { path: path, image: image };
+      return { path: `./${imageDirectory}/${fileName}`, image: image };
     });
   });
 }).then((results) => {
+  const html = ReportGenerator.generate(results);
+  fs.writeFileSync(`${output}/${reportFileName}`, html);
+
   logger.info('');
   logger.info(`finish (process time: ${(Date.now() - start) / 1000} sec)`, true);
   logger.info('');

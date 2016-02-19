@@ -23,6 +23,8 @@
     "glob": "^6.0.4",
     "js-yaml": "^3.5.3",
     "jszip": "^2.5.0",
+    "lodash": "^4.5.0",
+    "lodash.groupby": "^4.2.0",
     "mkdirp": "^0.5.1",
     "mustache": "^2.2.1",
     "promise-map-series": "^0.2.2",
