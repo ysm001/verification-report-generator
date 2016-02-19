@@ -15,10 +15,18 @@
     "co-foreach": "^1.1.1",
     "co-wait": "0.0.0",
     "date-utils": "^1.2.17",
+    "deepcopy": "^0.6.1",
+    "flatten": "^1.0.2",
     "fs-extra": "^0.26.4",
     "fs-promise": "^0.3.1",
+    "fusioncharts2svg": "^0.6.2",
     "glob": "^6.0.4",
+    "js-yaml": "^3.5.3",
     "jszip": "^2.5.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "mustache": "^2.2.1",
+    "promise-map-series": "^0.2.2",
+    "promise-waterfall": "^0.1.0",
+    "svgo": "^0.6.1"
   }
 }
