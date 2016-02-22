@@ -8,14 +8,21 @@ const util = require('util');
 
 module.exports = class ReportGenerator {
   static generate(images) {
-    const template = ReportGenerator.readTemplate().toString();
+    const template = ReportGenerator.makeTemplate();
     const json = ReportGenerator.makeMustacheJSON(images);
 
     return mustache.to_html(template, {logs: json});
   }
 
-  static readTemplate() {
-    return fs.readFileSync(path.join(__dirname, '../data/report.template.html'));
+  static makeTemplate() {
+    const template = fs.readFileSync(path.join(__dirname, '../data/report-template/report.template.html')).toString();
+    const json = {
+      body: fs.readFileSync(path.join(__dirname, '../data/report-template/report.body.html')).toString(),
+      css: fs.readFileSync(path.join(__dirname, '../data/report-template/report.css')).toString(),
+      script: fs.readFileSync(path.join(__dirname, '../data/report-template/report.js')).toString()
+    }
+
+    return mustache.to_html(template, json);
   }
 
   static makeMustacheJSON(images) {

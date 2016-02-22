@@ -75,7 +75,7 @@
             text-align: left; }
 
           .detail-table {
-            margin-top: 0px;
+            margin: 0px;
             width: 90%;
           }
           
@@ -119,7 +119,7 @@
         </style>
       </head>
     
-      <body>
+      <body onLoad="resize()">
         <div class="detail-table-title">{{title}}</div>
         <table class="detail-table mdl-data-table">
           <thead>
@@ -146,13 +146,16 @@
         </table>
 
         <script type="text/javascript">
-          window.onload = function() {
-            var body = document.getElementsByTagName('body')[0];
-            var table = document.getElementsByTagName('table')[0];
-            var svg = document.getElementsByTagName('svg')[0];
-            svg.setAttribute('width', table.offsetWidth + 1);
-            svg.setAttribute('height', body.offsetHeight + 1);
-          }
+          function resize() {
+            // var body = this.document.getElementsByTagName('body')[0];
+            // var table = this.document.getElementsByTagName('table')[0];
+            // var svg = this.document.getElementsByTagName('svg')[0];
+            // console.log(table.offsetWidth);
+            // console.log(body.offsetWidth);
+            // svg.setAttribute('width', table.offsetWidth + 1);
+            // svg.setAttribute('height', body.offsetHeight + 1);
+            // console.log(svg);
+          };
         </script>
       </body>
     </html>

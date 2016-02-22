@@ -36,7 +36,9 @@ module.exports = class Image {
   }
 
   static create(machine, type, tool, core, group, index, data, useCompress) {
-    return Image.optimize(data).then((optimizedSVG) => {
+    const useOptimize = type != 'table';
+
+    return (useOptimize ? Image.optimize(data) : Promise.resolve({info: {}, data: data})).then((optimizedSVG) => {
       const width = optimizedSVG.info.width || 0;
       const height = optimizedSVG.info.height || 0;
       const svg = useCompress ? Image.gzip(optimizedSVG.data) : optimizedSVG.data;

@@ -1,0 +1,117 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+  <header class="mdl-layout__header">
+    <acme-navbar>
+      <div class="nav-toggle-button-container">
+        <div class="nav-toggle-button" ng-class="{'open': !vm.appStatus.isFullScreenMode}" ng-click="vm.onDrawerButtonClicked()">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <!--
+        <div class="toggle-button mdl-layout__drawer-button" ng-click="vm.onDrawerButtonClicked()">
+        <i class="material-icons">menu</i>
+        </div>
+      -->
+
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title mdl-badge" data-badge="VR">Verification Report</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" href="#">About</a>
+        </nav>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+      </div>
+      </acme-navbar>
+  </header>
+
+  <main class="mdl-layout__content">
+  <div class="page-content">
+    <div class="mdl-grid">
+
+      <chart-tab class="full-width">
+        <!-- chart-tabs-container start -->
+        <div class="chart-tabs-container">
+          <div class="chart-tabs full-width">
+            {{#logs}}
+            <a ng-repeat="category in chartTab.categories"
+               id="{{tool}}-tab"
+               href="#{{tool}}-body"
+               class="chart-tab mdl-button mdl-js-button mdl-button--primary"
+               ng-click="chartTab.scrollTo($index)"
+               ng-class="chartTab.getClass($index)">{{tool}}</a>
+            {{/logs}}
+          </div>
+        </div>
+        <!-- chart-tabs-container end -->
+
+        <!-- chart-container start -->
+        <div class="chart-container">
+          {{#logs}}
+          <chart-container id="{{tool}}-body">
+            <div class="chart-card mdl-card mdl-shadow--2dp" in-view="chartContainer.render($inview, $inviewpart)">
+              <div class="chart-card-title">
+                {{tool}}
+              </div>
+              <hr class="chart-card-title-bottom-line">
+              <div class="chart-card-tab {{tool}}-tab" class="full-width" ng-class="{'chart-card-tab-fixed': chartContainer.tabFixed && chartContainer.isActive, 'full-width': chartContainer.appStatus.isFullScreenMode}">
+                {{#tabs}}
+                <div class="chart-card-tab-item" tool={{tool}} core={{core}} ng-click="chartContainer.onChartCardTabItemClicked(tab)" ng-class="{'chart-card-tab-item-active': chartContainer.isActiveTab(tab)}">
+                  {{core}}
+                </div>
+                {{/tabs}}
+              </div>
+
+              <div class="chart-card-body-container">
+                <div class="chart-card-body">
+
+                  {{#tabs}}
+                  <div ng-repeat="tab in chartContainer.tabDataSourceKeys" class="{{tool}}-tab-content {{tool}}-tab-content-{{core}} hide" ng-class="{hide: !chartContainer.isActiveTab(tab) && !chartContainer.appStatus.requiresFullRender}">
+                    {{#groups}}
+                    <div ng-repeat="group in chartContainer.getGroups(tab)" class="chart-card-grid" group="{{group}}" ng-class="{'no-border': $last}">
+                      {{#types}}
+                      <div class="chart-card-grid-row chart-row">
+                        {{#chart}}
+                        <div ng-repeat="itemId in chartContainer.getItemIds(tab, group)" class="chart-grid-row-item">
+                          {{& data}}
+                        </div>
+                        {{/chart}}
+                      </div>
+                      {{#table}}
+                      <div class="chart-card-grid-row table-row">
+                        <!--
+                          <detail dataId="{{::chartContainer.dataId}}" category="{{::chartContainer.category}}" group="{{::group}}" tab="{{::tab}}"></detail>
+                        -->
+                        {{& data}}
+                      </div>
+                      {{/table}}
+                      {{/types}}
+                    </div>
+                    {{/groups}}
+                  </div>
+                  {{/tabs}}
+
+                </div>
+              </div>
+            </div>
+            </chart-container>
+            {{/logs}}
+        </div>
+        <!-- chart-container end -->
+
+        <div class="chart-tab-footer chart-card mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__actions mdl-card--border">
+          </div>
+        </div>
+        </chart-tab>
+    </div>
+  </div>
+  </main>
+
+</div>
