@@ -50,7 +50,7 @@ module.exports = class ReportGenerator {
 
       return {
         'chart': ReportGenerator.convertToMustacheFormat(nestedJson['chart'], newKeys.slice(1, newKeys.length)),
-        'table': ReportGenerator.convertToMustacheFormat(nestedJson['table'], newKeys.slice(1, newKeys.length))
+        'table': ('table' in nestedJson) ? ReportGenerator.convertToMustacheFormat(nestedJson['table'], newKeys.slice(1, newKeys.length)) : null
       }
     }
 
