@@ -7,7 +7,6 @@ const mkdirp = require('mkdirp');
 const config = require('../config/directory.json');
 const ParserExecuter = require('./parser-executer.js');
 const logger = require('../libs/logger.js');
-const LogPath = require('./log-path.js');
 const Path = require('path');
 const glob = require('glob');
 

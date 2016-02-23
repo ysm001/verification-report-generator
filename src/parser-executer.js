@@ -7,7 +7,6 @@ const config = require('../config/directory.json').development;
 const PromiseDir = require('../libs/promise-dir.js');
 const logger = require('../libs/logger.js');
 const LogType = require('./log-type.js');
-const LogPath = require('./log-path.js');
 const co = require('co');
 const foreach = require('co-foreach');
 const wait = require('co-wait');
