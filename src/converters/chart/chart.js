@@ -28,7 +28,7 @@ module.exports = class Chart {
   }
 
   getFushionFormatJSONs() {
-    const styleTemplate = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../data/style.json')));
+    const styleTemplate = JSON.parse(fs.readFileSync(path.join(__dirname, '../../../config/style.json')));
     return this.getTabs(this.dataSource).map((tabValue) => {
       const groups = this.formatJSONs(tabValue.value);
 

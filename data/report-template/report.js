@@ -5,7 +5,6 @@ function getTabs() {
 function activateTabItem($tabItem) {
   $tabItem.addClass('chart-card-tab-item-active');
   activateTab($tabItem);
-  resizeTable();
 }
 
 function activateFirstTab() {
@@ -28,14 +27,6 @@ function activateTab($tabItem) {
 
   $('.' + tool + '-tab-content').addClass('hide');
   $('.' + tool + '-tab-content-' + core).removeClass('hide');
-}
-
-function resizeTable() {
-  $('.detail-table').each(function() {
-    var $table = $(this);
-    $table.parents('svg').attr('width', $table.width())
-    $table.parents('svg').attr('height', $table.height() + 44)
-  })
 }
 
 $(function() {

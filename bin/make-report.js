@@ -11,12 +11,8 @@ const path = require('path');
 const input = process.argv[2];
 const output = process.argv[3];
 
-const imageDirectory = `images`;
-const imageOutput = `${output}/${imageDirectory}`
-
 const reportFileName = 'report.html';
-
-mkdirp.sync(imageOutput);
+mkdirp.sync(output);
 
 const start = Date.now();
 Log.fromAnsibleLogFiles(input).then((logs) => {
@@ -24,15 +20,6 @@ Log.fromAnsibleLogFiles(input).then((logs) => {
   return map(types, (type) => {
     return Renderer.renderLogs(type, logs)
   }).then(flatten);
-}).then((images) => {
-  logger.info(`------------------------ save files -------------------------`, true);
-  return map(images, (image) => {
-    const path = `${imageOutput}/${image.name}.${image.ext}`;
-    return image.save(path).then(() => {
-      logger.info(`saved: ${path}`);
-      return image;
-    });
-  });
 }).then((results) => {
   const html = ReportGenerator.generate(results);
   const reportFilePath = path.resolve(`${output}/${reportFileName}`);

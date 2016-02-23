@@ -35,7 +35,5 @@
   "legendShadow": "0",
   "legendItemFontSize": "10",
   "legendItemFontColor": "#666666",
-  "exportEnabled": "1",
-  "exportAtClientSide": "1",
   "animation": "0"
 }

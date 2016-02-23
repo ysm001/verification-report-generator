@@ -71,45 +71,4 @@ module.exports = class ReportGenerator {
       return ret;
     });
   }
-
-  toJSON(iamges) {
-    return {
-      logs: [{
-        tool: 'fio',
-        tabs: [{
-          core: 'Max',
-          groups: [{
-            group: 0,
-            items: [{
-              id: 0,
-              path: ''
-            }]
-          }]
-        }, {
-          core: 'Half'
-        }]
-      }, {
-        tool: 'kernbench',
-        tabs: [{
-          core: 'Max',
-        }, {
-          core: 'Half'
-        }]
-      }, {
-        tool: 'lmbench',
-        tabs: [{
-          core: 'Max',
-        }, {
-          core: 'Half'
-        }]
-      }, {
-        tool: 'netperf',
-        tabs: [{
-          core: 'Max',
-        }, {
-          core: 'Half'
-        }]
-      }]
-    }
-  }
 };
