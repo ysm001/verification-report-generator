@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const config = require('../config/directory.json');
+const directory = require('../config/directory.json');
 
 module.exports = class LogPath {
   static makePath(root, jenkinsJobName, jenkinsBuildNumber) {
@@ -10,7 +10,7 @@ module.exports = class LogPath {
 
   static makeTmpPath(jenkinsJobName, jenkinsBuildNumber) {
     const name = Date.now().toString();
-    const path = LogPath.makePath(config.tmpDir, jenkinsJobName, jenkinsBuildNumber);
+    const path = LogPath.makePath(directory.tmp, jenkinsJobName, jenkinsBuildNumber);
 
     return `${path}-${name}`;
   }

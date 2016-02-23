@@ -1,5 +1,3 @@
 {
-  "logsDir": "data/logs",
-  "uploadsDir": "uploads",
-  "tmpDir": "tmp"
+  "tmp": "tmp"
 }

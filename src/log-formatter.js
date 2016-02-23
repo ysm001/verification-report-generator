@@ -6,6 +6,7 @@ const exec = require('child_process').exec;
 const mkdirp = require('mkdirp');
 const config = require('../config/directory.json');
 const ParserExecuter = require('./parser-executer.js');
+const logger = require('../libs/logger.js');
 const LogPath = require('./log-path.js');
 const Path = require('path');
 const glob = require('glob');
@@ -15,7 +16,7 @@ module.exports = class LogFormatter {
     const query = `ruby scripts/formatter.rb ${inputPath} ${outputPath}`;
     mkdirp.sync(outputPath);
 
-    console.log(query);
+    logger.info(query);
     const deferred = Promise.defer();
 
     exec(query, (error, stdout, stderr) => {

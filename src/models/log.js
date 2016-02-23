@@ -4,7 +4,7 @@ const fs = require('fs');
 const fsp = require('fs-promise');
 const ParserExecuter = require('../parser-executer.js');
 const LogFormatter = require('../log-formatter.js');
-const config = require('../../config/directory.json');
+const directory = require('../../config/directory.json');
 const logger = require('../../libs/logger.js');
 const map = require('promise-map-series');
 
@@ -44,7 +44,7 @@ module.exports = class Log {
 
   static fromAnsibleLogFiles(input) {
     const id = logger.start('format');
-    return LogFormatter.format(input, config.tmpDir).then((result) => {
+    return LogFormatter.format(input, directory.tmp).then((result) => {
 
       const logInfo = JSON.parse(result);
       logger.info(logInfo);
