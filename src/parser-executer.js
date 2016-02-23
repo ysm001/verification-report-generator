@@ -5,6 +5,7 @@ const exec = require('child_process').exec;
 const config = require('../config/directory.json').development;
 
 const PromiseDir = require('../libs/promise-dir.js');
+const logger = require('../libs/logger.js');
 const LogType = require('./log-type.js');
 const LogPath = require('./log-path.js');
 const co = require('co');
@@ -35,11 +36,11 @@ module.exports = class ParserExecuter {
   static execParser(type, targets, oldVersion, newVersion) {
     const query = ParserExecuter.makeQuery(type, targets, oldVersion, newVersion);
 
-    console.log(query);
+    logger.info(query);
     return new Promise((resolve, reject) => {
       exec(query, (error, stdout, stderr) => {
         if (error !== null) return reject(error);
-        if (stderr) console.log(stderr);
+        if (stderr) logger.error(stderr);
         if (stdout) resolve(stdout);
       })
     });

@@ -36,6 +36,7 @@ Log.fromAnsibleLogFiles(input).then((logs) => {
   logger.info(`finish (process time: ${(Date.now() - start) / 1000} sec)`, true);
   logger.info('');
 }).catch((err) => {
-  console.error(err.stack);
+  logger.error(err);
+  logger.error(err.stack);
 });
 

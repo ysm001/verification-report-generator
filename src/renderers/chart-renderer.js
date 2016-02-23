@@ -40,9 +40,9 @@ module.exports = class ChartRenderer {
     const parameters = ChartRenderer.parametalize(fusionchartsJSON);
 
     return map(parameters, (param) => {
-      logger.info(`rendering...: ${tool}_${param.core}_${param.group}_${param.idx}`, true);
+      logger.info(`rendering...: ${tool}_${param.core}_${param.group}_${param.idx}`);
       return fc2svg.fromObject(this.makeChart(param.dataSource)).then((svg) => {
-        logger.info(`render complete: ${tool}_${param.core}_${param.group}_${param.idx}`, true);
+        logger.info(`render complete: ${tool}_${param.core}_${param.group}_${param.idx}`);
         return {
           tool: tool,
           type: 'chart',

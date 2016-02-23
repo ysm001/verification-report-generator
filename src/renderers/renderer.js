@@ -24,8 +24,8 @@ module.exports = class Renderer {
   static renderLogs(type, logs) {
     return map(logs, (log) => {
       return map(Object.keys(log.json), (tool) => {
-        logger.info(`---------- render (${log.machine} ${tool} ${type}) ----------`, true);
-        return Renderer.render(log.machine, type, tool, log.json[tool]);
+        const id = logger.start(`rendering (${log.machine} ${tool} ${type})`);
+        return Renderer.render(log.machine, type, tool, log.json[tool]).then((image) => {logger.end(id); return image;});
       });
     });
   }

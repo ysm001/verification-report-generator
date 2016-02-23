@@ -34,28 +34,30 @@ module.exports = class Log {
   }
 
   static fromLogFiles(oldVersion, newVersion, machine, path) {
-    logger.info(`parse ${path}`, true);
+    const id = logger.start(`parse`);
+    logger.info(`log: ${path}`, true);
     return Log.toJSON(oldVersion, newVersion, path).then((json) => {
-      logger.info('finish', true);
-      logger.infoBlock(json);
+      logger.end(id);
       return new Log(oldVersion, newVersion, machine, path, json);
     });
   }
 
   static fromAnsibleLogFiles(input) {
-    logger.info('format from ansible format logs to parsable format logs', true);
+    const id = logger.start('format');
     return LogFormatter.format(input, config.tmpDir).then((result) => {
-      logger.info('finish', true);
 
       const logInfo = JSON.parse(result);
-      logger.infoBlock(logInfo);
+      logger.info(logInfo);
 
       const oldVersion = logInfo.versions[0];
       const newVersion = logInfo.versions[1];
 
-      return map(logInfo.logs, (log) => {
+      const logs = map(logInfo.logs, (log) => {
         return Log.fromLogFiles(oldVersion, newVersion, log.machine, log.path)
       });
+      logger.end(id);
+
+      return logs;
     });
   }
 }

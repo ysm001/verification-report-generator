@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const ConverterExecuter = require('../converters/table/converter-executer.js');
+const logger = require('../../libs/logger.js');
 const mustache = require('mustache');
 const flatten = require('flatten');
 
@@ -22,7 +23,7 @@ module.exports = class TableRenderer {
 
     const results = Object.keys(tableJSONs).map((core) => {
       return tableJSONs[core].map((tableJSON) => {
-        console.log(`render complete: ${tool}_${core}_${tableJSON.title}`);
+        logger.info(`render complete: ${tool}_${core}_${tableJSON.title}`);
         const svg = mustache.to_html(template, tableJSON);
         return {
           tool: tool,

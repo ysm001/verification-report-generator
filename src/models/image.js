@@ -7,6 +7,7 @@ const Svgo = require('svgo');
 const yaml = require('js-yaml');
 const zlib = require('zlib');
 const svgoConfig = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../../config/svgo.yml'), 'utf8'));
+const logger = require('../../libs/logger.js');
 const svgo = new Svgo(svgoConfig);
 
 module.exports = class Image {
@@ -63,7 +64,7 @@ module.exports = class Image {
     const deferred = Promise.defer();
 
     svgo.optimize(svg, (optimizedSVG) => {
-      console.log(`svg compression: ${svg.length / 1024}KB -> ${optimizedSVG.data.length / 1024}KB (${optimizedSVG.data.length * 100.0 / svg.length}%)`);
+      logger.info(`svg compression: ${svg.length / 1024}KB -> ${optimizedSVG.data.length / 1024}KB (${optimizedSVG.data.length * 100.0 / svg.length}%)`);
       return deferred.resolve(optimizedSVG);
     });
 
