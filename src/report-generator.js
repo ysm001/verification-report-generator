@@ -9,9 +9,12 @@ const util = require('util');
 module.exports = class ReportGenerator {
   static generate(images) {
     const template = ReportGenerator.makeTemplate();
-    const json = ReportGenerator.makeMustacheJSON(images);
+    const jsons = ReportGenerator.makeMustacheJSON(images);
 
-    return mustache.to_html(template, {logs: json});
+    return jsons.map((json) => {
+      const html = mustache.to_html(template, { logs: json.data });
+      return { machine: json.machine, data: html };
+    });
   }
 
   static makeTemplate() {
@@ -42,7 +45,11 @@ module.exports = class ReportGenerator {
     ];
 
     const nestedJson = nestGroupBy(images, [byMachine, byTool, byCore, byGroup, byType, byIndex]);
-    return ReportGenerator.convertToMustacheFormat(nestedJson['hpg9-0'], newKeys);
+
+    return Object.keys(nestedJson).map((machine) => {
+      const json = ReportGenerator.convertToMustacheFormat(nestedJson[machine], newKeys);
+      return { machine: machine, data: json };
+    });
   }
 
   static convertToMustacheFormat(nestedJson, newKeys) {
