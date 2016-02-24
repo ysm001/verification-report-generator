@@ -881,3 +881,7 @@ version-input-field .mdl-textfield__label {
 .chart-card-title {
   text-transform: uppercase;
 }
+
+main {
+  overflow: hidden;
+}
