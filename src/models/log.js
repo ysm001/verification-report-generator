@@ -45,7 +45,6 @@ module.exports = class Log {
   static fromAnsibleLogFiles(input) {
     const id = logger.start('format');
     return LogFormatter.format(input, directory.tmp).then((result) => {
-
       const logInfo = JSON.parse(result);
       logger.info(logInfo);
 

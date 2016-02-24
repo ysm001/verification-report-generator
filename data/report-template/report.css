@@ -159,7 +159,6 @@ chart {
 }
 .chart-card .chart-card-tab-fixed {
   position: fixed;
-  width: calc(75% + 16px);
   top: 112px
 }
 .chart-card .chart-card-tab-item {

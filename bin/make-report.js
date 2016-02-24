@@ -23,11 +23,19 @@ Log.fromAnsibleLogFiles(input).then((logs) => {
   const types = ['table', 'chart'];
   return map(types, (type) => {
     return Renderer.renderLogs(type, logs)
-  }).then(flatten);
-}).then((results) => {
-  const htmls = ReportGenerator.generate(results);
+  }).then(flatten).then((images) => {
+    return {
+      oldVersion: logs[0].oldVersion,
+      newVersion: logs[1].newVersion,
+      images: images
+    }
+  });
+}).then((result) => {
+  const htmls = ReportGenerator.generate(result.images);
+  const now = Date.now();
+
   htmls.forEach((html) => {
-    const reportFilePath = path.resolve(`${output}/report-${html.machine}-${Date.now()}.html`);
+    const reportFilePath = path.resolve(`${output}/${html.machine}-${result.oldVersion}_vs_${result.newVersion}-${now}.html`);
     fs.writeFileSync(reportFilePath, html.data);
     logger.info(`report file: ${reportFilePath}`, true);
   });

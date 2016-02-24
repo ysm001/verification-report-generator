@@ -48,7 +48,7 @@
         <!-- chart-container start -->
         <div class="chart-container">
           {{#logs}}
-          <chart-container id="{{tool}}-body">
+          <chart-container id="{{tool}}-body" tool="{{tool}}">
             <div class="chart-card mdl-card mdl-shadow--2dp" in-view="chartContainer.render($inview, $inviewpart)">
               <div class="chart-card-title">
                 {{tool}}
