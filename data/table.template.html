@@ -1,0 +1,24 @@
+<div class="detail-table-title">{{title}}</div>
+<table class="detail-table mdl-data-table">
+  <thead>
+    {{#headers}}
+    <tr>          
+      {{#.}}
+      <th class="detail-table-header {{class}}" colspan="{{colspan}}">{{text}}</th>          
+      {{/.}}
+    </tr>
+    {{/headers}}
+  </thead>
+
+  <tbody>
+    {{#records}}
+    <tr class="">
+      {{#cols}}
+      <td class="detail-table-col {{class}}">
+        {{text}}
+      </td>
+      {{/cols}}
+    </tr>
+    {{/records}}
+  </tbody>
+</table>
