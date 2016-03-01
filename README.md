@@ -4,8 +4,8 @@
 This tool allows you to generate verification report in HTML format.
 
 ## Requirements
-node: latest version (current v5.7.0)
-npm: latest version (current 3.8.0)
+- node: latest version (current v5.7.0)
+- npm: latest version (current 3.8.0)
 
 ## SetUp
 
