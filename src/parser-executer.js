@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const exec = require('child_process').exec;
-const config = require('../config/directory.json').development;
+const config = require('../config/directory.js');
 
 const PromiseDir = require('../libs/promise-dir.js');
 const logger = require('../libs/logger.js');
@@ -46,7 +46,7 @@ module.exports = class ParserExecuter {
   }
 
   static makeQuery(type, targets, oldVersion, newVersion) {
-    const parser = `scripts/parsers/${type}.rb`;
+    const parser = `${config.appRoot}/scripts/parsers/${type}.rb`;
     const args = ParserExecuter.makeArgs(type, targets, oldVersion, newVersion);
 
     return `ruby ${parser} ${args}`;

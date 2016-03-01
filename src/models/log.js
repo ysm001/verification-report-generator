@@ -4,7 +4,7 @@ const fs = require('fs');
 const fsp = require('fs-promise');
 const ParserExecuter = require('../parser-executer.js');
 const LogFormatter = require('../log-formatter.js');
-const directory = require('../../config/directory.json');
+const directory = require('../../config/directory.js');
 const logger = require('../../libs/logger.js');
 const map = require('promise-map-series');
 
