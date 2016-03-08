@@ -18,28 +18,33 @@ if (!input || !output) {
 
 mkdirp.sync(output);
 
-const start = Date.now();
-Log.fromAnsibleLogFiles(input).then((logs) => {
-  const types = ['table', 'chart'];
-  return map(types, (type) => {
-    return Renderer.renderLogs(type, logs)
-  }).then(flatten).then((images) => {
-    return {
-      oldVersion: logs[0].oldVersion,
-      newVersion: logs[1].newVersion,
-      images: images
-    }
-  });
-}).then((result) => {
-  const htmls = ReportGenerator.generate(result.images);
-  const now = Date.now();
+const render = (logs) => map(['table', 'chart'], (type) => {
+  return Renderer.renderLogs(type, logs)
+}).then(flatten);
+
+const createImages = (input) => Log.fromAnsibleLogFiles(input).then((logs) => render(logs).then(images => ({
+  oldVersion: logs[0].oldVersion,
+  newVersion: logs[1].newVersion,
+  data: images
+})));
+
+const makeReportFilePath = (base, machineName, oldVersion, newVersion, timestamp) => {
+  return path.resolve(`${base}/${machineName}-${oldVersion}_vs_${newVersion}-${timestamp}.html`)
+}
+
+const generateReports = (images) => {
+  const htmls = ReportGenerator.generate(images.data);
+  const timestamp = Date.now();
 
   htmls.forEach((html) => {
-    const reportFilePath = path.resolve(`${output}/${html.machine}-${result.oldVersion}_vs_${result.newVersion}-${now}.html`);
+    const reportFilePath = makeReportFilePath(output, html.machine, images.oldVersion, images.newVersion, timestamp);
     fs.writeFileSync(reportFilePath, html.data);
     logger.info(`report file: ${reportFilePath}`, true);
   });
+};
 
+const start = Date.now();
+createImages(input).then(generateReports).then(() => {
   logger.info('');
   logger.info(`finish (process time: ${(Date.now() - start) / 1000} sec)`, true);
   logger.info('');
@@ -47,4 +52,3 @@ Log.fromAnsibleLogFiles(input).then((logs) => {
   logger.error(err);
   logger.error(err.stack);
 });
-
