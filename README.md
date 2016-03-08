@@ -55,6 +55,7 @@ Ansibleから吐き出されたログを、パーサで処理し易いディレ�
 
 ### 3. ログ解析結果の整形
 ログ解析で出力されたJSONを、描画に利用する形式に整形
+
 具体的には、グラフは[Fusioncharts](http://www.fusioncharts.com/)形式に、表はHTMLテーブルに変換しやすい形式に整形
 #### 関連ソース
 - src/converters 以下
