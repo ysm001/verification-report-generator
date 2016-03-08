@@ -18,11 +18,11 @@ module.exports = class ReportGenerator {
   }
 
   static makeTemplate() {
-    const template = fs.readFileSync(path.join(__dirname, '../data/report-template/report.template.html')).toString();
+    const template = fs.readFileSync(path.join(__dirname, '../templates/report-template/report.template.html')).toString();
     const json = {
-      body: fs.readFileSync(path.join(__dirname, '../data/report-template/report.body.html')).toString(),
-      css: fs.readFileSync(path.join(__dirname, '../data/report-template/report.css')).toString(),
-      script: fs.readFileSync(path.join(__dirname, '../data/report-template/report.js')).toString()
+      body: fs.readFileSync(path.join(__dirname, '../templates/report-template/report.body.html')).toString(),
+      css: fs.readFileSync(path.join(__dirname, '../templates/report-template/report.css')).toString(),
+      script: fs.readFileSync(path.join(__dirname, '../templates/report-template/report.js')).toString()
     }
 
     return mustache.to_html(template, json);

@@ -14,7 +14,7 @@ module.exports = class TableRenderer {
   }
 
   static readTemplate() {
-    return fs.readFileSync(path.join(__dirname, '../../data/table.template.html'));
+    return fs.readFileSync(path.join(__dirname, '../../templates/table.template.html'));
   }
 
   static render(tool, log) {
